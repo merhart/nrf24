@@ -58,7 +58,7 @@ void nrf24::setTXaddress(uint8_t *a){
 }
 
 
-void writeReg(int reg, int value){
+void nrf24::writeReg(int reg, int value){
   csn(LOW);
   SPI.transfer(reg | 0x20);
   SPI.transfer(value);

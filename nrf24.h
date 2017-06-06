@@ -80,7 +80,6 @@ private:
 	void flushRX();
   void writeMTXPayload(uint8_t*, int);
 	void readMRXPayload(uint8_t *buf, int c);
-};
 public:
 	nrf24(const int ce, const int csn);
 	void begin();
@@ -93,6 +92,7 @@ public:
 	void sendACK(uint8_t *buf, int c);
 	virtual ~nrf24();
 
+};
 inline void nrf24::csn(bool state) {digitalWrite(csn_pin, state);}
 inline void nrf24::ce(bool state) {digitalWrite(ce_pin, state);}
 
