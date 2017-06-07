@@ -123,13 +123,36 @@ void nrf24::send(uint8_t *buf, int c){
 }
 
 void receive(uint8_t *buf, uint8_t size){
-   
-   csn(LOW);
-   SPI.transfer(0x61);0x61// command to read RX Payload
-   for (int j=0; j<c; j++){
-      buf[j] = SPI.transfer(0xFF); // NOP output, read data byte  
-   }
-   csn(HIGH);
+    
+  csn(LOW);
+  SPI.transfer(R_RX_PAYLOAD);// command to read RX Payload
+  for (int j=0; j<c; j++){
+     buf[j] = SPI.transfer(NOP); // NOP output, read data byte  
+  }
+  csn(HIGH);
+}
+
+void receive(uint8_t *buf){
+  uint8_t size;
+  size = readPLWidth();
+    
+  csn(LOW);
+  SPI.transfer(R_RX_PL_WID);// command to read RX Payload
+  for (int j=0; j<c; j++){
+     buf[j] = SPI.transfer(0xFF); // NOP output, read data byte  
+  }
+  csn(HIGH);
+
+}
+
+uint8_t readPLWidth(){
+  uint8_t rv;
+             
+  csn(LOW); 
+  SPI.transfer(W_TX_PL_NACK);     // read payload width via R_RX_PL_WID
+  rv = SPI.transfer(0xFF);
+  csn(HIGH);  
+  return (rv);   
 }
 
 bool available(){
