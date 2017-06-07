@@ -93,8 +93,9 @@ public:
 	void send(uint8_t *buf, int c);
 	void sendACK(uint8_t *buf, int c);
   bool available();
-  void receive(uint8_t *buf, uint_t size);
+  void receive(uint8_t *buf, uint8_t size);
   void receive(uint8_t *buf);
+  uint8_t readPLWidth();
 	virtual ~nrf24();
 
 };
