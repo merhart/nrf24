@@ -23,11 +23,11 @@
 #define FLUSH_TX      0xE1
 #define FLUSH_RX      0xE2
 #define REUSE_TX_PL   0xE3
-#define W_TX_PL_NOACK 0xB0
+#define W_TX_PL_NACK 0xB0
 #define NOP           0XFF
 
 /* Memory Map */
-#define NRF_CONFIG      0x00
+#define NRF_CONFIG  0x00
 #define EN_AA       0x01
 #define EN_RXADDR   0x02
 #define SETUP_AW    0x03
@@ -93,7 +93,8 @@ public:
 	void send(uint8_t *buf, int c);
 	void sendACK(uint8_t *buf, int c);
   bool available();
-  void receive(uint8_t *buf, uint_t size)
+  void receive(uint8_t *buf, uint_t size);
+  void receive(uint8_t *buf);
 	virtual ~nrf24();
 
 };

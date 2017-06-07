@@ -92,7 +92,7 @@ void nrf24::readMRXPayload(uint8_t *buf, int c){
   csn(LOW);
   SPI.transfer(NOP);		// command to read RX Payload
   for (j=0; j<c; j++){
-    buf[j] = SPI.transfer(0xFF); // NOP output, read data byte
+    buf[j] = SPI.transfer(NOP); // NOP output, read data byte
   }
   csn(HIGH);
 }
@@ -122,17 +122,6 @@ void nrf24::send(uint8_t *buf, int c){
   delay(5); 
 }
 
-void nrf24::flushTX(){   // flush TX FIFO
-	  csn(LOW);
-	  SPI.transfer(FLUSH_TX);
-	  csn(HIGH);
-}
-
-void nrf24::flushRX(){   // flush RX FIFO
-	csn(LOW);
-	SPI.transfer(FLUSH_RX);
-	csn(HIGH);
-}
 void receive(uint8_t *buf, uint8_t size){
    
    csn(LOW);
@@ -150,6 +139,17 @@ bool available(){
   writeReg(NRF_STATUS, 0x40);
   return (status & 0x40);
 
+void nrf24::flushTX(){   // flush TX FIFO
+	  csn(LOW);
+	  SPI.transfer(FLUSH_TX);
+	  csn(HIGH);
+}
+
+void nrf24::flushRX(){   // flush RX FIFO
+	csn(LOW);
+	SPI.transfer(FLUSH_RX);
+	csn(HIGH);
+}
 
 nrf24::~nrf24() {
 	// TODO Auto-generated destructor stub
