@@ -10,6 +10,8 @@
 #include <SPI.h>
 
 /* Instruction Mnemonics */
+#define TX_INIT       0b01111110 // 0(1 bit), Mask ints (3 bits), 8-bit CRC (2 bits), PowerUp (1 bit), PTX (1 bit)
+#define RX_INIT       0b00001101 
 #define R_REGISTER    0x00
 #define W_REGISTER    0x20
 #define REGISTER_MASK 0x1F
@@ -90,6 +92,8 @@ public:
 //  int send(uint8_t *packet, int len);
 	void send(uint8_t *buf, int c);
 	void sendACK(uint8_t *buf, int c);
+  bool available();
+  void receive(uint8_t *buf, uint_t size)
 	virtual ~nrf24();
 
 };
